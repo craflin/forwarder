@@ -12,17 +12,17 @@ set(sources
     TunnelServer.hpp
 )
 
-add_executable(ndtunnel
+add_executable(tunnel
     ${sources}
 )
 
-target_link_libraries(ndtunnel PRIVATE
-    libnstd::Core libnstd::Socket
+target_link_libraries(tunnel PRIVATE
+    libnstd::Socket
 )
 
 source_group("" FILES ${sources})
 
-set_property(TARGET ndtunnel PROPERTY FOLDER "src")
+set_property(TARGET tunnel PROPERTY FOLDER "src")
 
-install(TARGETS ndtunnel DESTINATION usr/sbin)
+install(TARGETS tunnel DESTINATION usr/sbin)
 

@@ -10,7 +10,7 @@
 int main(int argc, char* argv[])
 {
   String logFile;
-  String configFile("/etc/ndtunnel.conf");
+  String configFile("/etc/tunnel.conf");
 
   // parse parameters
     {
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
         Detach from calling shell and write output to <file>.\n\
 \n\
     -c <file>, --config[=<file>]\n\
-        Load configuration from <file>. (Default is /etc/ndtunnel.conf)\n\
+        Load configuration from <file>. (Default is /etc/tunnel.conf)\n\
 \n", argv[0]);
               return -1;
         }
