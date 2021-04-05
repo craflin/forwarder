@@ -16,7 +16,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/tunnel
-NAME=dehprox
+NAME=tunnel
 DESC="Tunnel daemon"
 DAEMON_OPTS=
 
