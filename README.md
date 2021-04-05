@@ -1,6 +1,8 @@
 
 # Tunnel
 
+[![Build Status](http://iocp.hopto.org:8080/buildStatus/icon?job=craflin%2Ftunnel%2Fmaster)](http://iocp.hopto.org:8080/job/craflin/job/tunnel/job/master/)
+
 A very simple TCP v4 tunnel daemon.
 
 The daemon accepts TCP connections on configured ports and forwards them to another address.
