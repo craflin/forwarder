@@ -5,7 +5,7 @@
 #include <nstd/List.hpp>
 #include <nstd/Log.hpp>
 
-Settings::Settings() {}
+Settings::Settings() { }
 
 void Settings::loadSettings(const String& file, Settings& settings)
 {

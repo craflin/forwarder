@@ -1,29 +1,29 @@
 
-#include <nstd/Log.hpp>
-#include <nstd/Thread.hpp>
-#include <nstd/Process.hpp>
 #include <nstd/Console.hpp>
 #include <nstd/Error.hpp>
+#include <nstd/Log.hpp>
+#include <nstd/Process.hpp>
+#include <nstd/Thread.hpp>
 
 #include "TunnelServer.hpp"
 
 int main(int argc, char* argv[])
 {
-  String logFile;
-  String configFile("/etc/tunnel.conf");
+    String logFile;
+    String configFile("/etc/tunnel.conf");
 
-  // parse parameters
+    // parse parameters
     {
         Process::Option options[] = {
-            {'b', "daemon", Process::argumentFlag | Process::optionalFlag},
-            {'c', "config", Process::argumentFlag},
-            {'h', "help", Process::optionFlag},
+            { 'b', "daemon", Process::argumentFlag | Process::optionalFlag },
+            { 'c', "config", Process::argumentFlag },
+            { 'h', "help", Process::optionFlag },
         };
         Process::Arguments arguments(argc, argv, options);
         int character;
         String argument;
-        while(arguments.read(character, argument))
-            switch(character)
+        while (arguments.read(character, argument))
+            switch (character)
             {
             case 'b':
                 logFile = argument.isEmpty() ? String("/dev/null") : argument;
@@ -45,9 +45,10 @@ int main(int argc, char* argv[])
 \n\
     -c <file>, --config[=<file>]\n\
         Load configuration from <file>. (Default is /etc/tunnel.conf)\n\
-\n", argv[0]);
-              return -1;
-        }
+\n",
+                    argv[0]);
+                return -1;
+            }
     }
 
     Log::setLevel(Log::debug);
@@ -58,10 +59,10 @@ int main(int argc, char* argv[])
 
     // daemonize process
 #ifndef _WIN32
-    if(!logFile.isEmpty())
+    if (!logFile.isEmpty())
     {
         Log::infof("Starting as daemon...");
-        if(!Process::daemonize(logFile))
+        if (!Process::daemonize(logFile))
         {
             Log::errorf("Could not daemonize process: %s", (const char*)Error::getErrorString());
             return -1;

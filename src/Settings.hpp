@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <nstd/String.hpp>
 #include <nstd/List.hpp>
+#include <nstd/String.hpp>
 
 #include "Address.hpp"
 
@@ -14,7 +14,10 @@ struct Settings
         String targetHost;
         uint16 targetPort;
 
-        Tunnel() : targetPort() {}
+        Tunnel()
+            : targetPort()
+        {
+        }
     };
 
     List<Tunnel> tunnels;
@@ -23,4 +26,3 @@ struct Settings
 
     static void loadSettings(const String& file, Settings& settings);
 };
-

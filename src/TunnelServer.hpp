@@ -4,8 +4,8 @@
 #include "Settings.hpp"
 #include "TunnelListener.hpp"
 
-#include <nstd/Socket/Server.hpp>
 #include <nstd/PoolList.hpp>
+#include <nstd/Socket/Server.hpp>
 
 class TunnelServer
 {
@@ -14,7 +14,7 @@ public:
 
     bool start(Address& failedAddress);
 
-    void run() {_server.run();}
+    void run() { _server.run(); }
 
 private:
     const Settings& _settings;
