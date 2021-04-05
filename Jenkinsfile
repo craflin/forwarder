@@ -17,14 +17,10 @@ pipeline {
                         steps {
                             cmakeBuild buildDir: 'build', cleanBuild: true, installation: 'InSearchPath', buildType: 'Release', cmakeArgs: '-G Ninja'
                             cmake workingDir: 'build', arguments: '--build . --target package', installation: 'InSearchPath'
+                            archiveArtifacts artifacts: 'build/*.deb'
                         }
                     }
                 }
-                post { 
-                    always {
-                        archiveArtifacts artifacts: 'build/dehprox-*.deb'
-                    }
-                } 
             }
         }
     }

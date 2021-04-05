@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.1)
 cmake_policy(SET CMP0048 NEW)
 
-project(ndtunnel VERSION 0.1.0)
+project(tunnel VERSION 0.1.0)
 
 set(CDEPLOY_NO_DEBUG_BUILD True)
 set(CDEPLOY_NO_COMPILER True)
