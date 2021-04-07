@@ -1,12 +1,12 @@
 #!/bin/sh
 #
 ### BEGIN INIT INFO
-# Provides:          tunnel
+# Provides:          forwarder
 # Required-Start:    $network
 # Required-Stop:     $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: A very simple TCP v4 tunnel daemon
+# Short-Description: A very simple TCP v4 port forwarder daemon
 # Description:       The daemon accepts TCP connections on configured ports and
 #                    forwards them to another address.
 ### END INIT INFO
@@ -15,16 +15,16 @@
 #
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/sbin/tunnel
-NAME=tunnel
-DESC="Tunnel daemon"
+DAEMON=/usr/sbin/forwarder
+NAME=forwarder
+DESC="Forwarder daemon"
 DAEMON_OPTS=
 
 test -x $DAEMON || exit 0
 
 # Include custom values if available
-if [ -f /etc/default/tunnel ] ; then
-	. /etc/default/tunnel
+if [ -f /etc/default/forwarder ] ; then
+	. /etc/default/forwarder
 fi
 
 DAEMON_OPTS="-b $DAEMON_OPTS"

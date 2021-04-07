@@ -10,7 +10,7 @@
 int main(int argc, char* argv[])
 {
     String logFile;
-    String configFile("/etc/tunnel.conf");
+    String configFile("/etc/forwarder.conf");
 
     // parse parameters
     {
@@ -71,17 +71,17 @@ int main(int argc, char* argv[])
         Log::setLevel(Log::info);
     }
 #endif
-    // start tunnel server
+    // start the server
     TunnelServer server(settings);
     {
         Address failedAddress;
         if (!server.start(failedAddress))
-            return Log::errorf("Could not start tunnel server on TCP port %s:%hu: %s", (const char*)Socket::inetNtoA(failedAddress.addr), (uint16)failedAddress.port, (const char*)Socket::getErrorString()), 1;
+            return Log::errorf("Could not listen on TCP port %s:%hu: %s", (const char*)Socket::inetNtoA(failedAddress.addr), (uint16)failedAddress.port, (const char*)Socket::getErrorString()), 1;
     }
     for (List<Settings::Tunnel>::Iterator i = settings.tunnels.begin(), end = settings.tunnels.end(); i != end; ++i)
         Log::infof("Listening on TCP port %hu...", (uint16)i->listenAddr.port);
 
-    // run tunnel  server
+    // run the server
     server.run();
     return 1;
 }
