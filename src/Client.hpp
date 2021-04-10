@@ -5,14 +5,14 @@
 
 #include <nstd/Socket/Server.hpp>
 
-class TunnelClient : public Server::Client::ICallback
+class Client : public Server::Client::ICallback
     , public Server::Establisher::ICallback
 {
 public:
     class ICallback
     {
     public:
-        virtual void onClosed(TunnelClient& client) = 0;
+        virtual void onClosed(Client& client) = 0;
 
     protected:
         ICallback() { }
@@ -20,8 +20,8 @@ public:
     };
 
 public:
-    TunnelClient(Server& server, Server::Client& client, const Address& address, ICallback& callback);
-    ~TunnelClient();
+    Client(Server& server, Server::Client& client, const Address& address, ICallback& callback);
+    ~Client();
 
     bool connect(const String& host, uint16 port);
 
@@ -38,7 +38,7 @@ private:
     class Uplink : public Server::Client::ICallback
     {
     public:
-        Uplink(TunnelClient& client)
+        Uplink(Client& client)
             : _client(client)
         {
         }
@@ -49,7 +49,7 @@ private:
         void onClosed() override { _client._callback.onClosed(_client); }
 
     private:
-        TunnelClient& _client;
+        Client& _client;
     };
 
 private:

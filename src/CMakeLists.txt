@@ -4,25 +4,23 @@ set(sources
     Main.cpp
     Settings.cpp
     Settings.hpp
-    TunnelClient.cpp
-    TunnelClient.hpp
-    TunnelListener.cpp
-    TunnelListener.hpp
-    TunnelServer.cpp
-    TunnelServer.hpp
+    Client.cpp
+    Client.hpp
+    Listener.cpp
+    Listener.hpp
 )
 
-add_executable(tunnel
+add_executable(forwarder
     ${sources}
 )
 
-target_link_libraries(tunnel PRIVATE
+target_link_libraries(forwarder PRIVATE
     libnstd::Socket
 )
 
 source_group("" FILES ${sources})
 
-set_property(TARGET tunnel PROPERTY FOLDER "src")
+set_property(TARGET forwarder PROPERTY FOLDER "src")
 
-install(TARGETS tunnel DESTINATION usr/sbin)
+install(TARGETS forwarder DESTINATION usr/sbin)
 

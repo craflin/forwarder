@@ -15,7 +15,7 @@ The daemon accepts TCP connections on configured ports and forwards them to anot
 
 ## Setup
 
-* Install `tunnel` from the `deb` package.
+* Install `forwarder` from the `deb` package.
 * Configure TCP tunnels in `/etc/forwarder.conf`.
-* Start the `tunnel` daemon with `sudo systemctl start tunnel`.
-    * You can use `sudo systemctl enable tunnel` to start the daemon automatically after a system restart.
+* Start the `forwarder` daemon with `sudo systemctl start forwarder`.
+    * You can use `sudo systemctl enable forwarder` to start the daemon automatically after a system restart.

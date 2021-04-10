@@ -5,7 +5,42 @@
 #include <nstd/Process.hpp>
 #include <nstd/Thread.hpp>
 
-#include "TunnelServer.hpp"
+#include "Settings.hpp"
+#include "Listener.hpp"
+
+class Main
+{
+public:
+    Main(const Settings& settings)
+        : _settings(settings)
+    {
+        _server.setReuseAddress(true);
+        _server.setKeepAlive(true);
+        _server.setNoDelay(true);
+    }
+
+    bool start(Address& failedAddress)
+    {
+        for (List<Settings::Tunnel>::Iterator i = _settings.tunnels.begin(), end = _settings.tunnels.end(); i != end; ++i)
+        {
+            const Settings::Tunnel& tunnel = *i;
+            Listener& listener = _listeners.append<Server&, const String&, uint16>(_server, tunnel.targetHost, tunnel.targetPort);
+            if (!_server.listen(tunnel.listenAddr.addr, tunnel.listenAddr.port, listener))
+            {
+                failedAddress = tunnel.listenAddr;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void run() { _server.run(); }
+
+private:
+    const Settings& _settings;
+    Server _server;
+    PoolList<Listener> _listeners;
+};
 
 int main(int argc, char* argv[])
 {
@@ -72,16 +107,16 @@ int main(int argc, char* argv[])
     }
 #endif
     // start the server
-    TunnelServer server(settings);
+    Main main(settings);
     {
         Address failedAddress;
-        if (!server.start(failedAddress))
+        if (!main.start(failedAddress))
             return Log::errorf("Could not listen on TCP port %s:%hu: %s", (const char*)Socket::inetNtoA(failedAddress.addr), (uint16)failedAddress.port, (const char*)Socket::getErrorString()), 1;
     }
     for (List<Settings::Tunnel>::Iterator i = settings.tunnels.begin(), end = settings.tunnels.end(); i != end; ++i)
         Log::infof("Listening on TCP port %hu...", (uint16)i->listenAddr.port);
 
     // run the server
-    server.run();
+    main.run();
     return 1;
 }

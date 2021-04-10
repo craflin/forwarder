@@ -1,11 +1,11 @@
 
-#include "TunnelClient.hpp"
+#include "Client.hpp"
 
 #include <nstd/Error.hpp>
 #include <nstd/Log.hpp>
 #include <nstd/Socket/Socket.hpp>
 
-TunnelClient::TunnelClient(Server& server, Server::Client& client, const Address& address, ICallback& callback)
+Client::Client(Server& server, Server::Client& client, const Address& address, ICallback& callback)
     : _server(server)
     , _client(client)
     , _address(address)
@@ -18,7 +18,7 @@ TunnelClient::TunnelClient(Server& server, Server::Client& client, const Address
     client.suspend();
 }
 
-TunnelClient::~TunnelClient()
+Client::~Client()
 {
     _server.remove(_client);
     if (_establisher)
@@ -27,7 +27,7 @@ TunnelClient::~TunnelClient()
         _server.remove(*_uplink);
 }
 
-bool TunnelClient::connect(const String& host, uint16 port)
+bool Client::connect(const String& host, uint16 port)
 {
     _destinationHost = host;
     _destinationPort = port;
@@ -37,7 +37,7 @@ bool TunnelClient::connect(const String& host, uint16 port)
     return true;
 }
 
-void TunnelClient::forward(Server::Client& from, Server::Client& to)
+void Client::forward(Server::Client& from, Server::Client& to)
 {
     usize size;
     byte buffer[262144];
@@ -50,7 +50,7 @@ void TunnelClient::forward(Server::Client& from, Server::Client& to)
         from.suspend();
 }
 
-Server::Client::ICallback* TunnelClient::onConnected(Server::Client& client)
+Server::Client::ICallback* Client::onConnected(Server::Client& client)
 {
     Log::infof("%s: Established connection with %s:%hu", (const char*)Socket::inetNtoA(_address.addr),
         (const char*)_destinationHost, _destinationPort);
@@ -60,7 +60,7 @@ Server::Client::ICallback* TunnelClient::onConnected(Server::Client& client)
     return &_uplinkCallback;
 }
 
-void TunnelClient::onAbolished()
+void Client::onAbolished()
 {
     Log::infof("%s: Failed to establish connection with %s:%hu: %s", (const char*)Socket::inetNtoA(_address.addr),
         (const char*)_destinationHost, _destinationPort, (const char*)Error::getErrorString());

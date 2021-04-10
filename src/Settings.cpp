@@ -29,12 +29,12 @@ void Settings::loadSettings(const String& file, Settings& settings)
             continue;
         const String& option = *tokens.begin();
         const String& value = *(++tokens.begin());
-        if (option == "tunnel")
+        if (option == "forward")
         {
             List<String> tokens;
             value.split(tokens, ":", false);
             if (tokens.size() < 3)
-                Log::warningf("Invalid tunnel arguments: %s", (const char*)value);
+                Log::warningf("Invalid forwarder arguments: %s", (const char*)value);
             else
             {
                 Settings::Tunnel tunnel;
