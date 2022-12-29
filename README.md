@@ -1,7 +1,7 @@
 
 # Forwarder
 
-[![Build Status](http://iocp.hopto.org:8080/buildStatus/icon?job=craflin%2Fforwarder%2Fmaster)](http://iocp.hopto.org:8080/job/craflin/job/forwarder/job/master/)
+[![Build Status](http://xaws6t1emwa2m5pr.myfritz.net:8080/buildStatus/icon?job=craflin%2Fforwarder%2Fmaster)](http://xaws6t1emwa2m5pr.myfritz.net:8080/job/craflin/job/forwarder/job/master/)
 
 A very simple TCP v4 port forwarder daemon.
 
