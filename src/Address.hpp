@@ -9,7 +9,7 @@ struct Address
     uint16 port;
 
     Address()
-        : addr(Socket::anyAddr)
+        : addr(Socket::anyAddress)
         , port(0)
     {
     }
