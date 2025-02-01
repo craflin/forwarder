@@ -3,7 +3,6 @@
 #include <nstd/Error.hpp>
 #include <nstd/Log.hpp>
 #include <nstd/Process.hpp>
-#include <nstd/Thread.hpp>
 
 #include "Settings.hpp"
 #include "Listener.hpp"
@@ -79,7 +78,7 @@ int main(int argc, char* argv[])
         Detach from calling shell and write output to <file>.\n\
 \n\
     -c <file>, --config[=<file>]\n\
-        Load configuration from <file>. (Default is /etc/tunnel.conf)\n\
+        Load configuration from <file>. (Default is /etc/forwarder.conf)\n\
 \n",
                     argv[0]);
                 return -1;
